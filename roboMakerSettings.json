@@ -1,0 +1,83 @@
+{
+  "runConfigurations": [
+    {
+      "id": "HelloWorld_Cfg01",
+      "name": "racecar Build",
+      "type": "colcon build",
+      "cfg": {
+        "workingDir": "/racecar_ws",
+        "cmdArgs": ""
+      }
+    },
+    {
+      "id": "HelloWorld_Cfg02",
+      "name": "racecar Bundle",
+      "type": "colcon bundle",
+      "cfg": {
+        "workingDir": "/racecar_ws",
+        "cmdArgs": ""
+      }
+    },
+    {
+      "id": "HelloWorld_SimulationJob1",
+      "name": "racecar",
+      "type": "simulation",
+      "cfg": {
+        "robotApp": {
+          "name": "Robots",
+          "sourceBundleFile": "/racecar_ws/bundle/output.tar",
+          "s3Bucket": "animesh717",
+          "architecture": "X86_64",
+          "launchConfig": {
+            "packageName": "robots",
+            "launchFile": "robot.launch",
+            "environmentVariables": {}
+          },
+          "robotSoftwareSuite": {
+            "name": "ROS",
+            "version": "Melodic"
+          }
+        },
+        "simulationApp": {
+          "name": "Simulation",
+          "sourceBundleFile": "/racecar_ws/bundle/output.tar",
+          "architecture": "X86_64",
+          "s3Bucket": "animesh717",
+          "launchConfig": {
+            "packageName": "simulation",
+            "launchFile": "combine.launch",
+            "environmentVariables": {}
+          },
+          "simulationSoftwareSuite": {
+            "name": "Gazebo",
+            "version": "9"
+          },
+          "renderingEngine": {
+            "name": "OGRE",
+            "version": "1.x"
+          },
+          "robotSoftwareSuite": {
+            "name": "ROS",
+            "version": "Melodic"
+          }
+        },
+        "simulation": {
+          "maxJobDurationInSeconds": 900,
+          "failureBehavior": "Fail",
+          "iamRole": "arn:aws:iam::987847354795:role/robomaker_students",
+          "outputLocation": "",
+          "tags": {}
+        }
+      }
+    },
+    {
+      "id": "HelloWorld_wf1",
+      "type": "workflow",
+      "name": "racecar - Build and Bundle All",
+      "runCfgIds": [
+        "HelloWorld_Cfg01",
+        "HelloWorld_Cfg02"
+      ]
+    }
+  ]
+}

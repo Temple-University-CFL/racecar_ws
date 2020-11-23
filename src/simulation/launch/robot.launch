@@ -1,0 +1,16 @@
+<launch>
+    
+    <!-- Robot pose -->
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+    
+    <!-- This command builds the urdf files from the xacro files by calling the launch file -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robots)/models/diff_drive/diff_drive.xacro'"/>
+    
+    <!-- Spawn the robot after we built the urdf files -->
+    <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
+    args="-urdf -param robot_description -model racecar
+            -x $(arg x) -y $(arg y) -z $(arg z)"/>
+    
+</launch>

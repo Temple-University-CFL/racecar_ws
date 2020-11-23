@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find simulation)/launch/world.launch"/>
+    
+    <include file="$(find simulation)/launch/robot.launch">
+        <arg name="x" value="2.75"/>
+        <arg name="y" value="-14.0"/>
+        <arg name="z" value="0.00"/>
+    </include>
+    
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> 
+</launch>
